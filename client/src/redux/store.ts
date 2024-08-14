@@ -1,42 +1,20 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
 import songReducer from "./reducer/songSlice";
-
-const persistConfig = {
-  key: "root",
-  storage,
-};
+import rootSaga from "./saga/rootSaga";
 
 const sagaMiddleware = createSagaMiddleware();
 
-const rootReducer = combineReducers({
-  song: songReducer,
-});
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-export const store = configureStore({
-  reducer: persistedReducer,
+const store = configureStore({
+  reducer: {
+    songs: songReducer,
+  },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }).concat(sagaMiddleware),
+    getDefaultMiddleware({ thunk: false }).concat(sagaMiddleware),
 });
+sagaMiddleware.run(rootSaga);
 
-export type state = ReturnType<typeof store.getState>;
-export type dispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+export type AddDispatch = typeof store.dispatch;
 
-export const persistor = persistStore(store);
+export default store;
