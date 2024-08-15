@@ -3,6 +3,75 @@ import styled from "@emotion/styled";
 import { Link, NavLink } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 
+interface MobileMenu {
+  isOpen: boolean;
+}
+
+const NavbarComponent: React.FC = () => {
+  const [isOpen, setisOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setisOpen(!isOpen);
+  };
+
+  return (
+    <>
+      <Navbar>
+        <div>
+          <p style={{ fontSize: "18px", fontWeight: "bold", color: "#f8426f" }}>
+            Dankira
+          </p>
+        </div>
+
+        <div>
+          {" "}
+          <MobileMenu isOpen={isOpen}>
+            <Link to="/">Home</Link>
+            <Link to="/lists">Lists</Link>
+            <Link to="/">Add</Link>
+            <Link to="/workouts">Update</Link>
+          </MobileMenu>
+          <NavItems>
+            <Link to="/">Home</Link>
+            <Link to="/lists">Lists</Link>
+            <Link to="/">Add</Link>
+            <Link to="/workouts">Update</Link>
+          </NavItems>
+          <MenuIcons onClick={toggleMenu}>
+            {isOpen ? <FaTimes /> : <FaBars />}
+          </MenuIcons>
+        </div>
+      </Navbar>
+    </>
+  );
+};
+
+export default NavbarComponent;
+
+const MobileMenu = styled.ul`
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 16px;
+  list-style: none;
+  width: 85%;
+  padding: 12px 40px 24px 40px;
+  background-color: #18151f;
+  position: absolute;
+  top: 70px;
+  right: 0;
+  transition: all 0.6s ease-in-out;
+  transform: ${({ isOpen }) =>
+    isOpen ? "translateY(0)" : "translateY(-100%)"};
+  border-radius: 5px 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  opacity: ${({ isOpen }) => (isOpen ? "100%" : "0")};
+  z-index: ${({ isOpen }) => (isOpen ? "1000" : "-1000")};
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+`;
 const Navbar = styled.div`
   background-color: #18151f;
   color: #ffffff;
@@ -69,100 +138,6 @@ export const NavItems = styled.ul`
 
 export const MenuIcons = styled.div`
   cursor: pointer;
-
-  @media screen and (min-width: 768px) {
-    display: none;
-  }
-`;
-
-interface MobileMenu {
-  isOpen: boolean;
-}
-
-const NavbarComponent: React.FC = () => {
-  const [isOpen, setisOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setisOpen(!isOpen);
-  };
-
-  return (
-    <>
-      <Navbar>
-        <div>
-          <p>Dankira</p>
-        </div>
-
-        <div>
-          {" "}
-          <MobileMenu isOpen={isOpen}>
-            <Link to="/">Home</Link>
-            <Link to="/lists">Lists</Link>
-            <Link to="/">Add</Link>
-            <Link to="/workouts">Update</Link>
-          </MobileMenu>
-          <NavItems>
-            <Link to="/">Home</Link>
-            <Link to="/lists">Lists</Link>
-            <Link to="/">Add</Link>
-            <Link to="/workouts">Update</Link>
-          </NavItems>
-          <MenuIcons onClick={toggleMenu}>
-            {isOpen ? <FaTimes /> : <FaBars />}
-          </MenuIcons>
-        </div>
-      </Navbar>
-
-      {/* <MobileMenu isOpen={isOpen}>
-        <NavLinks>
-          <Link to="/" style={{ color: "#ffffff", textDecoration: "none" }}>
-            Home
-          </Link>
-        </NavLinks>
-        <div>
-          <Link to="/list" style={{ color: "#ffffff", textDecoration: "none" }}>
-            Songs
-          </Link>
-        </div>
-        <div>
-          <Link to="/add" style={{ color: "#ffffff", textDecoration: "none" }}>
-            Add Song
-          </Link>
-        </div>
-        <div>
-          <Link
-            to="/update"
-            style={{ color: "#ffffff", textDecoration: "none" }}
-          >
-            Update Song
-          </Link>
-        </div>
-      </MobileMenu> */}
-    </>
-  );
-};
-
-export default NavbarComponent;
-
-const MobileMenu = styled.ul`
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  gap: 16px;
-  list-style: none;
-  width: 85%;
-  padding: 12px 40px 24px 40px;
-  background-color: #18151f;
-  position: absolute;
-  top: 70px;
-  right: 0;
-  transition: all 0.6s ease-in-out;
-  transform: ${({ isOpen }) =>
-    isOpen ? "translateY(0)" : "translateY(-100%)"};
-  border-radius: 5px 5px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-  opacity: ${({ isOpen }) => (isOpen ? "100%" : "0")};
-  z-index: ${({ isOpen }) => (isOpen ? "1000" : "-1000")};
 
   @media screen and (min-width: 768px) {
     display: none;
