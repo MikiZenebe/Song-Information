@@ -68,22 +68,12 @@ export const NavItems = styled.ul`
 `;
 
 export const MenuIcons = styled.div`
+  cursor: pointer;
+
   @media screen and (min-width: 768px) {
     display: none;
   }
 `;
-
-export const NavTextButton = styled.div({
-  textAlign: "end",
-  color: "#5B86E5",
-  cursor: "pointer",
-  fontSize: "16px",
-  transition: "all 0.3s ease",
-  fontWeight: "600",
-  "&:hover": {
-    color: "#007AFF",
-  },
-});
 
 interface MobileMenu {
   isOpen: boolean;
@@ -106,8 +96,10 @@ const NavbarComponent: React.FC = () => {
         <div>
           {" "}
           <MobileMenu isOpen={isOpen}>
-            <Link to="/">Dashboard</Link>
-            <Link to="/workouts">Workouts</Link>
+            <Link to="/">Home</Link>
+            <Link to="/lists">Lists</Link>
+            <Link to="/">Add</Link>
+            <Link to="/workouts">Update</Link>
           </MobileMenu>
           <NavItems>
             <Link to="/">Home</Link>
@@ -157,19 +149,22 @@ const MobileMenu = styled.ul`
   flex-direction: column;
   align-items: start;
   gap: 16px;
-  padding: 0 6px;
   list-style: none;
-  width: 90%;
+  width: 85%;
   padding: 12px 40px 24px 40px;
-
+  background-color: #18151f;
   position: absolute;
-  top: 80px;
+  top: 70px;
   right: 0;
   transition: all 0.6s ease-in-out;
   transform: ${({ isOpen }) =>
     isOpen ? "translateY(0)" : "translateY(-100%)"};
-  border-radius: 0 0 20px 20px;
+  border-radius: 5px 5px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
   opacity: ${({ isOpen }) => (isOpen ? "100%" : "0")};
   z-index: ${({ isOpen }) => (isOpen ? "1000" : "-1000")};
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
 `;
