@@ -6,37 +6,39 @@ import { FaBars, FaTimes } from "react-icons/fa";
 const Navbar = styled.div`
   background-color: #18151f;
   color: #ffffff;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 80px;
+
+  @media (max-width: 850px) {
+    padding: 0px 30px;
+  }
 `;
 
-const Logo = styled.div`
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #f8426f;
-  cursor: pointer;
-`;
+const NavLinks = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 50px;
 
-const NavLinks = styled.ul`
-  @media (max-width: 768px) {
+  @media (max-width: 850px) {
     display: none;
   }
 `;
 
-const NavLink = styled.li`
-  cursor: pointer;
-  transition: color 0.3s ease;
-
-  &:hover {
-    color: #f8426f;
-  }
-`;
-
-const HamburgerMenu = styled.div`
-  display: none;
+const MenuIcons = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 50px;
   cursor: pointer;
 
-  @media (max-width: 768px) {
-    display: flex;
-    font-size: 1.5rem;
+  @media (min-width: 850px) {
+    display: none;
   }
 `;
 
@@ -44,22 +46,17 @@ interface MobileMenuProps {
   isOpen: boolean;
 }
 
-const MobileMenu = styled.ul<MobileMenuProps>`
+const MobileMenu = styled.div<MobileMenuProps>`
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  position: absolute;
-  top: 60px;
+
   left: 0;
-  width: 100%;
-  background-color: #05000e;
-  padding: 1rem 2rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  width: auto;
 
   transition: transform 0.3s ease;
 
-  @media (min-width: 769px) {
+  @media (min-width: 850px) {
     display: none;
   }
 `;
@@ -74,66 +71,69 @@ const NavbarComponent: React.FC = () => {
   return (
     <>
       <Navbar>
-        <Logo>Dankira</Logo>
+        <div>
+          <p>Dankira</p>
+        </div>
         <NavLinks>
-          <NavLink>
+          <div>
             <Link to="/" style={{ color: "#ffffff", textDecoration: "none" }}>
               Home
             </Link>
-          </NavLink>
-          <NavLink>
+          </div>
+          <div>
             <Link
               to="/list"
               style={{ color: "#ffffff", textDecoration: "none" }}
             >
               Songs
             </Link>
-          </NavLink>
-          <NavLink>
+          </div>
+          <div>
             <Link
               to="/add"
               style={{ color: "#ffffff", textDecoration: "none" }}
             >
               Add Song
             </Link>
-          </NavLink>
-          <NavLink>
+          </div>
+          <div>
             <Link
               to="/update"
               style={{ color: "#ffffff", textDecoration: "none" }}
             >
               Update Song
             </Link>
-          </NavLink>
+          </div>
         </NavLinks>
-        <HamburgerMenu onClick={toggleMenu}>
+        <MenuIcons onClick={toggleMenu}>
           {isOpen ? <FaTimes /> : <FaBars />}
-        </HamburgerMenu>
+        </MenuIcons>
       </Navbar>
+
       <MobileMenu isOpen={isOpen}>
-        <NavLink onClick={toggleMenu}>
+        <NavLinks>
           <Link to="/" style={{ color: "#ffffff", textDecoration: "none" }}>
             Home
           </Link>
-        </NavLink>
-        <NavLink onClick={toggleMenu}>
+        </NavLinks>
+        <div>
           <Link to="/list" style={{ color: "#ffffff", textDecoration: "none" }}>
             Songs
           </Link>
-        </NavLink>
-        <NavLink onClick={toggleMenu}>
+        </div>
+        <div>
           <Link to="/add" style={{ color: "#ffffff", textDecoration: "none" }}>
             Add Song
           </Link>
-        </NavLink>
-        <NavLink onClick={toggleMenu}>
+        </div>
+        <div>
           <Link
             to="/update"
             style={{ color: "#ffffff", textDecoration: "none" }}
           >
             Update Song
           </Link>
-        </NavLink>
+        </div>
       </MobileMenu>
     </>
   );
