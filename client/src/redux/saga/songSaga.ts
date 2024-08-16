@@ -7,20 +7,31 @@ import {
   addSongSuccess,
   addSongFailure,
 } from "../reducer/songSlice";
-import { getSongsUrl } from "../../api/index";
+import { addSongsUrl, getSongsUrl } from "../../api/index";
+import axios from "axios";
 
 function* fetchSongs(): Generator<Effect, void, unknown> {
   try {
-    const response = yield call(() => getSongsUrl);
-    const songs = yield response.json();
+    const response = yield call(axios.get, getSongsUrl);
+    const songs = yield response.data;
     yield put(getSongsSuccess(songs));
   } catch (error) {
     yield put(getSongsFailure((error as Error).message));
   }
 }
 
+function* addSong(action): Generator<Effect, void, unknown> {
+  try {
+    const res = yield call(axios.post, addSongsUrl, action.payload);
+    yield put(addSongSuccess(res.data));
+  } catch (error) {
+    yield put(addSongFailure((error as Error).message));
+  }
+}
+
 function* songsSaga(): Generator<Effect, void, unknown> {
   yield takeLatest(getSongsFetch.type, fetchSongs);
+  yield takeLatest(addSongStart.type, addSong);
 }
 
 export default songsSaga;

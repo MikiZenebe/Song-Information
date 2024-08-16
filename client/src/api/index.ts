@@ -1,3 +1,2 @@
-import axios from "axios";
-
-export const getSongsUrl = axios.get("https://dummyjson.com/users");
+export const getSongsUrl = "http://localhost:5000/api/song/allSongs";
+export const addSongsUrl = "http://localhost:5000/api/song/addSong";

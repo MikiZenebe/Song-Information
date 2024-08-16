@@ -1,17 +1,32 @@
 import styled from "@emotion/styled";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { useEffect } from "react";
+import { getSongsFetch } from "../redux/reducer/songSlice";
 
 export default function SongList() {
+  const dispatch = useDispatch();
+  const { songs, error } = useSelector((state: RootState) => state.songs);
+
+  useEffect(() => {
+    dispatch(getSongsFetch());
+    console.log(songs);
+  }, [dispatch, songs]);
+
   return (
     <Container>
       <div>
         <div>
           <h1>Genres</h1>
+
           <Genre>
-            <p>Hip Hop</p>
-            <p>Hip Hop</p> <p>Hip Hop</p> <p>Hip Hop</p> <p>Hip Hop</p>
+            {songs.map((song) => {
+              return <p>{song.genre}</p>;
+            })}
           </Genre>
         </div>
-
+        {/* {loading && <h1>Loading...</h1>} */}
+        {error && <h1>{error}</h1>}
         <div>
           <Table>
             <thead>
@@ -24,12 +39,16 @@ export default function SongList() {
             </thead>
 
             <tbody>
-              <tr>
-                <td>Zewazwe</td>
-                <td>Abdu Kiyar</td>
-                <td>Anbessa</td>
-                <td>Batti</td>
-              </tr>
+              {songs.map((song) => {
+                return (
+                  <tr>
+                    <td>{song.title}</td>
+                    <td>{song.artist}</td>
+                    <td>{song.album}</td>
+                    <td>{song.genre}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </Table>
         </div>
@@ -48,7 +67,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 50px 80px;
+  padding: 30px 30px;
 
   @media (max-width: 850px) {
     padding: 50px 30px;
@@ -63,15 +82,15 @@ const Table = styled.div`
 
   td,
   th {
-    padding: 25px;
+    padding: 15px 25px;
 
     @media (max-width: 750px) {
-      padding: 25px;
+      padding: 15px 25px;
     }
   }
 
   tr:nth-child(even) {
-    background-color: red;
+    background-color: #493f3f87;
   }
   tr:hover {
     background-color: #f8426f;
