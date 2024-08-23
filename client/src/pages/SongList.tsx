@@ -10,7 +10,6 @@ export default function SongList() {
 
   useEffect(() => {
     dispatch(getSongsFetch());
-    console.log(songs);
   }, [dispatch, songs]);
 
   return (
@@ -20,9 +19,9 @@ export default function SongList() {
           <h1>Genres</h1>
 
           <Genre>
-            {songs.map((song) => {
+            {/* {songs.map((song) => {
               return <p>{song.genre}</p>;
-            })}
+            })} */}
           </Genre>
         </div>
         {/* {loading && <h1>Loading...</h1>} */}

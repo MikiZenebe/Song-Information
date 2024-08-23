@@ -1,4 +1,4 @@
-import { call, Effect, put, takeEvery, takeLatest } from "redux-saga/effects";
+import { call, Effect, put, takeLatest } from "redux-saga/effects";
 import {
   getSongsFetch,
   getSongsSuccess,
@@ -20,7 +20,7 @@ function* fetchSongs(): Generator<Effect, void, unknown> {
   }
 }
 
-function* addSong(action): Generator<Effect, void, unknown> {
+function* addSong(action: any): Generator<Effect, void, unknown> {
   try {
     const res = yield call(axios.post, addSongsUrl, action.payload);
     yield put(addSongSuccess(res.data));

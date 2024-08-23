@@ -27,7 +27,7 @@ const NavbarComponent: React.FC = () => {
           {" "}
           <MobileMenu isOpen={isOpen}>
             <Link to="/">Home</Link>
-            <Link to="/lists">Lists</Link>
+            <Link to="/list">Lists</Link>
             <Link to="/add">Add</Link>
             <Link to="/workouts">Update</Link>
           </MobileMenu>
