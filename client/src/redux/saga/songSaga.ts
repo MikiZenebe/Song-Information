@@ -9,6 +9,8 @@ import {
 } from "../reducer/songSlice";
 import { addSongsUrl, getSongsUrl } from "../../api/index";
 import axios from "axios";
+import { Song } from "../../types/SongType";
+import { PayloadAction } from "@reduxjs/toolkit";
 
 function* fetchSongs(): Generator<Effect, void, unknown> {
   try {
@@ -20,7 +22,9 @@ function* fetchSongs(): Generator<Effect, void, unknown> {
   }
 }
 
-function* addSong(action: any): Generator<Effect, void, unknown> {
+function* addSong(
+  action: PayloadAction<Song>
+): Generator<Effect, void, unknown> {
   try {
     const res = yield call(axios.post, addSongsUrl, action.payload);
     yield put(addSongSuccess(res.data));

@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useEffect } from "react";
 import { getSongsFetch } from "../redux/reducer/songSlice";
+import { Link } from "react-router-dom";
+import { Container, Table } from "../styles/tableStyle";
 
 export default function SongList() {
   const dispatch = useDispatch();
@@ -10,8 +12,9 @@ export default function SongList() {
 
   useEffect(() => {
     dispatch(getSongsFetch());
-  }, [dispatch, songs]);
+  }, [dispatch]);
 
+  console.log(songs);
   return (
     <Container>
       <div>
@@ -40,8 +43,10 @@ export default function SongList() {
             <tbody>
               {songs.map((song) => {
                 return (
-                  <tr>
-                    <td>{song.title}</td>
+                  <tr key={song._id}>
+                    <td>
+                      <Link to={`/song/${song._id}`}>{song.title}</Link>
+                    </td>
                     <td>{song.artist}</td>
                     <td>{song.album}</td>
                     <td>{song.genre}</td>
@@ -55,54 +60,6 @@ export default function SongList() {
     </Container>
   );
 }
-
-const Container = styled.div`
-  max-width: 600px;
-  background-color: #18151f;
-  color: #ffffff;
-  width: auto;
-  margin: 50px auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 30px 30px;
-
-  @media (max-width: 850px) {
-    padding: 50px 30px;
-  }
-`;
-const Table = styled.div`
-  margin-top: 10%;
-  border-collapse: collapse;
-  width: 100%;
-  border: 1px solid #493f3f87;
-  cursor: pointer;
-
-  td,
-  th {
-    padding: 15px 25px;
-
-    @media (max-width: 750px) {
-      padding: 15px 25px;
-    }
-  }
-
-  tr:nth-child(even) {
-    background-color: #493f3f87;
-  }
-  tr:hover {
-    background-color: #f8426f;
-    transition: all 0.4s ease-in-out;
-  }
-
-  th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #3a3349;
-  }
-`;
 
 const Genre = styled.div`
   display: flex;

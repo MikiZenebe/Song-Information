@@ -21,6 +21,18 @@ export const getSong = async (req, res) => {
   }
 };
 
+export const getSingleSong = async (req, res) => {
+  try {
+    const song = await Song.findById(req.params.id);
+    if (!song) {
+      return res.status(400).json({ message: "Song not found" });
+    }
+    res.json(song);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 export const updateSong = async (req, res) => {
   const { title, artist, album, genre } = req.body;
   try {
