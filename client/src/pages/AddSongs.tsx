@@ -13,7 +13,7 @@ export default function AddSongs() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const newSong = { id: "", title, artist, album, genre };
+    const newSong = { _id: "", title, artist, album, genre };
     dispatch(addSongStart(newSong));
 
     if (newSong) {
@@ -75,8 +75,8 @@ export default function AddSongs() {
 
 const Container = styled.div`
   max-width: 600px;
-  background-color: #18151f;
-  color: #ffffff;
+  background-color: white;
+  color: #18151f;
   width: auto;
   margin: 50px auto;
   display: flex;
@@ -84,6 +84,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 30px 30px;
+  border: 1px solid #695d8561;
 
   @media (max-width: 850px) {
     padding: 50px 30px;
@@ -108,7 +109,7 @@ const Button = styled.button`
   transition: all 0.4s ease-in-out;
   border-radius: 5px;
   font-weight: 600;
-  background: transparent;
+  background: #f8426f;
 
   &:hover {
     width: 100%;
@@ -132,6 +133,8 @@ const Divs = styled.form`
     border: 1px solid #f842707a;
     transition: all 0.4s ease-in-out;
     border-radius: 5px;
+    background-color: transparent;
+    color: #18151f;
   }
 
   input:focus {

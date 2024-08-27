@@ -45,7 +45,12 @@ export default function SongList() {
                 return (
                   <tr key={song._id}>
                     <td>
-                      <Link to={`/song/${song._id}`}>{song.title}</Link>
+                      <Link
+                        to={`/song/${song._id}`}
+                        style={{ color: "#18151f" }}
+                      >
+                        {song.title}
+                      </Link>
                     </td>
                     <td>{song.artist}</td>
                     <td>{song.album}</td>

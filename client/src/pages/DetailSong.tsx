@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Song } from "../types/SongType";
 import { getSingleSongUrl } from "../api/index";
-import { css } from "@emotion/react";
 import axios from "axios";
 
 export default function DetailSong() {
@@ -36,10 +35,6 @@ export default function DetailSong() {
   if (loading) return <p>Loading....</p>;
   if (error) return <p>{error}</p>;
   if (!song) return <p>Song not found</p>;
-
-  interface btnProps {
-    success: string;
-  }
 
   return (
     <Container>
@@ -71,8 +66,12 @@ export default function DetailSong() {
         </Table>
 
         <BtnContainer>
-          <DetailBtn update>Update</DetailBtn>
-          <DetailBtn delete>Delete</DetailBtn>
+          <DetailBtn update delete={false}>
+            Update
+          </DetailBtn>
+          <DetailBtn delete update={false}>
+            Delete
+          </DetailBtn>
         </BtnContainer>
       </div>
     </Container>

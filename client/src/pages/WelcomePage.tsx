@@ -25,11 +25,12 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #05000e;
+  background: #ffffff;
   backdrop-filter: blur(10px);
   flex-direction: column;
   max-width: 600px;
   margin: auto;
+  color: #05000e;
 
   p {
     width: 100%;

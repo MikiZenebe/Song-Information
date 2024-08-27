@@ -1,14 +1,14 @@
 import styled from "@emotion/styled";
 
 interface btnProps {
-  update: string;
+  update: boolean;
   delete: boolean;
 }
 
 export const Container = styled.div`
   max-width: 600px;
-  background-color: #18151f;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #18151f;
   width: auto;
   margin: 50px auto;
   display: flex;
@@ -31,14 +31,14 @@ export const Table = styled.div`
   td,
   th {
     padding: 15px 25px;
-
     @media (max-width: 750px) {
       padding: 15px 25px;
     }
   }
 
   tr:nth-child(even) {
-    background-color: #493f3f87;
+    background-color: #e5e3ea;
+    color: #18151f;
   }
   tr:hover {
     background-color: #f8426f;
@@ -49,7 +49,8 @@ export const Table = styled.div`
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #3a3349;
+    background-color: #18151f;
+    color: white;
   }
 `;
 
