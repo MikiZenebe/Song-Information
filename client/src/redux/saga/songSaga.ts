@@ -6,8 +6,11 @@ import {
   addSongStart,
   addSongSuccess,
   addSongFailure,
+  deleteSongStart,
+  deleteSongSuccess,
+  deleteSongFailure,
 } from "../reducer/songSlice";
-import { addSongsUrl, getSongsUrl } from "../../api/index";
+import { addSongsUrl, getSongsUrl, songUrl } from "../../api/index";
 import axios from "axios";
 import { Song } from "../../types/SongType";
 import { PayloadAction } from "@reduxjs/toolkit";
@@ -33,9 +36,20 @@ function* addSong(
   }
 }
 
+function* deleteSong(action: ReturnType<typeof deleteSongStart>) {
+  const _id = action.payload;
+  try {
+    yield call(axios.delete, `${songUrl}/${_id}`);
+    yield put(deleteSongSuccess(_id));
+  } catch (error) {
+    yield put(deleteSongFailure((error as Error).message));
+  }
+}
+
 function* songsSaga(): Generator<Effect, void, unknown> {
   yield takeLatest(getSongsFetch.type, fetchSongs);
   yield takeLatest(addSongStart.type, addSong);
+  yield takeLatest(deleteSongStart.type, deleteSong);
 }
 
 export default songsSaga;

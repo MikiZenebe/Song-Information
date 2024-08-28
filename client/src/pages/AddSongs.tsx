@@ -2,8 +2,11 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addSongStart } from "../redux/reducer/songSlice";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function AddSongs() {
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");
   const [album, setAlbum] = useState("");
@@ -15,6 +18,9 @@ export default function AddSongs() {
     e.preventDefault();
     const newSong = { _id: "", title, artist, album, genre };
     dispatch(addSongStart(newSong));
+
+    toast.success("Song Created 🚀🚀🚀");
+    navigate("/");
 
     if (newSong) {
       setTitle("");
@@ -128,7 +134,7 @@ const Divs = styled.form`
 
   input {
     width: 100%;
-    padding: 5px;
+    padding: 10px;
     outline: none;
     border: 1px solid #f842707a;
     transition: all 0.4s ease-in-out;

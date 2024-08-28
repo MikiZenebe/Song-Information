@@ -12,11 +12,11 @@ export default function App() {
   return (
     <>
       {/* Conditionally render Navbar if the current path is not "/" */}
-      {location.pathname !== "/" && <Navbar />}
+      {location.pathname !== "/welcome" && <Navbar />}
 
       <Routes>
-        <Route path="/" element={<WelcomePage />} />
-        <Route path="/list" element={<SongList />} />
+        <Route path="/welcome" element={<WelcomePage />} />
+        <Route path="/" element={<SongList />} />
         <Route path="/song/:id" element={<DetailSong />} />
         <Route path="/add" element={<AddSongs />} />
         <Route path="/update" element={<UpdateSongs />} />

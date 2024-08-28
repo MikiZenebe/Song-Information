@@ -26,16 +26,14 @@ const NavbarComponent: React.FC = () => {
         <div>
           {" "}
           <MobileMenu isOpen={isOpen}>
-            <Link to="/">Home</Link>
-            <Link to="/list">Lists</Link>
+            <Link to="/welcome">Home</Link>
+            <Link to="/">Lists</Link>
             <Link to="/add">Add</Link>
-            <Link to="/workouts">Update</Link>
           </MobileMenu>
           <NavItems>
-            <Link to="/">Home</Link>
-            <Link to="/list">Lists</Link>
+            <Link to="/welcome">Home</Link>
+            <Link to="/">Lists</Link>
             <Link to="/add">Add</Link>
-            <Link to="/update">Update</Link>
           </NavItems>
           <MenuIcons onClick={toggleMenu}>
             {isOpen ? <FaTimes /> : <FaBars />}

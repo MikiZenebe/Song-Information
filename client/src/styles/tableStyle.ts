@@ -55,7 +55,7 @@ export const Table = styled.div`
 `;
 
 export const DetailBtn = styled.button<btnProps>`
-  padding: 5px 15px;
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;

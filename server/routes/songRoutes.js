@@ -15,6 +15,6 @@ router.get("/allSongs", getSong);
 router.get("/:id", getSingleSong);
 router.get("/stats", getStats);
 router.put("/updateSong/:id", updateSong);
-router.delete("/deleteSong/:id", deleteSong);
+router.delete("/:id", deleteSong);
 
 export default router;

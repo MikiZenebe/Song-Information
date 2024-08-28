@@ -37,7 +37,7 @@ const songsSlice = createSlice({
       state.loading = false;
     },
 
-    addSongStart(state, action: PayloadAction<Song>) {
+    addSongStart(state) {
       state.loading = true;
     },
     addSongSuccess(state, action: PayloadAction<Song>) {
@@ -48,12 +48,12 @@ const songsSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
-    updateSongStart(state, action: PayloadAction<Song>) {
+    updateSongStart(state) {
       state.loading = true;
     },
     updateSongSuccess(state, action: PayloadAction<Song>) {
       const index = state.songs.findIndex(
-        (song) => song.id === action.payload.id
+        (song) => song._id === action.payload._id
       );
       if (index !== -1) {
         state.songs[index] = action.payload;
@@ -64,11 +64,11 @@ const songsSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
-    deleteSongStart(state, action: PayloadAction<string>) {
+    deleteSongStart(state) {
       state.loading = true;
     },
     deleteSongSuccess(state, action: PayloadAction<string>) {
-      state.songs = state.songs.filter((song) => song.id !== action.payload);
+      state.songs = state.songs.filter((song) => song._id !== action.payload);
       state.loading = false;
     },
     deleteSongFailure(state, action: PayloadAction<string>) {
