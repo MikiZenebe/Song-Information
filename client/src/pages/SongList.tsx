@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useEffect } from "react";
@@ -62,20 +61,3 @@ export default function SongList() {
     </Container>
   );
 }
-
-const Genre = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-
-  p {
-    border: 1px solid #f8426f;
-    padding: 5px;
-    border-radius: 5%;
-  }
-  p:hover {
-    background-color: #f8426f;
-    transition: all 0.4s ease-in-out;
-    cursor: pointer;
-  }
-`;

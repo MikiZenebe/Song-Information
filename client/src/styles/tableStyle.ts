@@ -6,11 +6,11 @@ interface btnProps {
 }
 
 export const Container = styled.div`
-  max-width: 600px;
+  max-width: 900px;
   background-color: #ffffff;
   color: #18151f;
   width: auto;
-  margin: 50px auto;
+  margin: 5px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,7 +36,7 @@ export const Table = styled.div`
 
   td,
   th {
-    padding: 15px 25px;
+    padding: 10px 25px;
     @media (max-width: 750px) {
       padding: 15px 25px;
     }
