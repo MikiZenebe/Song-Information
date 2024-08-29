@@ -5,10 +5,13 @@ import { useEffect } from "react";
 import { getSongsFetch } from "../redux/reducer/songSlice";
 import { Link } from "react-router-dom";
 import { Container, Table } from "../styles/tableStyle";
+import Filter from "../components/Filter";
 
 export default function SongList() {
   const dispatch = useDispatch();
-  const { songs, error } = useSelector((state: RootState) => state.songs);
+  const { songs, error, loading } = useSelector(
+    (state: RootState) => state.songs
+  );
 
   useEffect(() => {
     dispatch(getSongsFetch());
@@ -18,16 +21,11 @@ export default function SongList() {
   return (
     <Container>
       <div>
-        <div>
-          <h1>Genres</h1>
-
-          <Genre>
-            {/* {songs.map((song) => {
-              return <p>{song.genre}</p>;
-            })} */}
-          </Genre>
+        <div className="genre">
+          <h1>Filter By Genre</h1>
+          <Filter />
         </div>
-        {/* {loading && <h1>Loading...</h1>} */}
+        {loading && <h1>Loading...</h1>}
         {error && <h1>{error}</h1>}
         <div>
           <Table>

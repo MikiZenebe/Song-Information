@@ -20,9 +20,15 @@ export const Container = styled.div`
   @media (max-width: 850px) {
     padding: 50px 30px;
   }
+
+  .genre {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
 `;
 export const Table = styled.div`
-  margin-top: 10%;
+  margin-top: 5%;
   border-collapse: collapse;
   width: 100%;
   border: 1px solid #493f3f87;

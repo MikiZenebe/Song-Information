@@ -13,12 +13,22 @@ interface SongsState {
   songs: Song[];
   loading: boolean;
   error: string | null;
+  filters: {
+    genre: string;
+    artist: string;
+    album: string;
+  };
 }
 
 const initialState: SongsState = {
   songs: [],
   loading: false,
   error: null,
+  filters: {
+    genre: "",
+    artist: "",
+    album: "",
+  },
 };
 
 const songsSlice = createSlice({
@@ -48,6 +58,7 @@ const songsSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
+
     updateSongStart(state) {
       state.loading = true;
     },
@@ -64,6 +75,7 @@ const songsSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
+
     deleteSongStart(state) {
       state.loading = true;
     },
@@ -72,6 +84,22 @@ const songsSlice = createSlice({
       state.loading = false;
     },
     deleteSongFailure(state, action: PayloadAction<string>) {
+      state.error = action.payload;
+      state.loading = false;
+    },
+
+    setFilters(state, action: PayloadAction<Partial<SongsState["filters"]>>) {
+      state.filters = { ...state.filters, ...action.payload };
+    },
+
+    filterSongStart(state) {
+      state.loading = true;
+    },
+    filterSongSuccess(state, action: PayloadAction<Song[]>) {
+      state.songs = action.payload;
+      state.loading = false;
+    },
+    filterSongFailure(state, action: PayloadAction<string>) {
       state.error = action.payload;
       state.loading = false;
     },
@@ -91,6 +119,10 @@ export const {
   deleteSongStart,
   deleteSongSuccess,
   deleteSongFailure,
+  setFilters,
+  filterSongStart,
+  filterSongSuccess,
+  filterSongFailure,
 } = songsSlice.actions;
 
 export default songsSlice.reducer;

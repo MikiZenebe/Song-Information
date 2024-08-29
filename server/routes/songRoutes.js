@@ -11,7 +11,8 @@ import {
 const router = express.Router();
 
 router.post("/addSong", addSong);
-router.get("/allSongs", getSong);
+router.get("/", getSong);
+// router.get("/", getSongFilter);
 router.get("/:id", getSingleSong);
 router.get("/stats", getStats);
 router.put("/:id", updateSong);

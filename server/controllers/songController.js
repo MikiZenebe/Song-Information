@@ -13,13 +13,37 @@ export const addSong = async (req, res) => {
 };
 
 export const getSong = async (req, res) => {
+  const { genre, artist, album } = req.query;
   try {
-    const songs = await Song.find({});
+    const filter = {};
+
+    if (genre) filter.genre = genre;
+    if (artist) filter.artist = artist;
+    if (album) filter.album = album;
+
+    const songs = await Song.find(filter);
+
     res.status(200).json(songs);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
+
+// export const getSongFilter = async (req, res) => {
+//   const { genre, artist, album } = req.query;
+//   try {
+//     const filter = {};
+//     if (genre) filter.genre = genre;
+//     if (artist) filter.genre = artist;
+//     if (album) filter.genre = album;
+
+//     const songs = await Song.find(filter);
+
+//     res.status(200).json(songs);
+//   } catch (error) {
+//     res.status(400).json({ message: error.message });
+//   }
+// };
 
 export const getSingleSong = async (req, res) => {
   try {

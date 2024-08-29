@@ -1,4 +1,4 @@
-import { call, Effect, put, takeLatest } from "redux-saga/effects";
+import { call, Effect, put, select, takeLatest } from "redux-saga/effects";
 import {
   getSongsFetch,
   getSongsSuccess,
@@ -12,11 +12,15 @@ import {
   updateSongStart,
   updateSongSuccess,
   updateSongFailure,
+  filterSongSuccess,
+  filterSongFailure,
+  filterSongStart,
 } from "../reducer/songSlice";
 import { addSongsUrl, getSongsUrl, songUrl } from "../../api/index";
 import axios from "axios";
 import { Song } from "../../types/SongType";
 import { PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 function* fetchSongs(): Generator<Effect, void, unknown> {
   try {
@@ -61,11 +65,30 @@ function* deleteSong(action: ReturnType<typeof deleteSongStart>) {
   }
 }
 
+function* filterSong(): Generator<Effect, void, unknown> {
+  try {
+    const { genre, artist, album } = yield select(
+      (state: RootState) => state.songs.filters
+    );
+    const query = new URLSearchParams();
+
+    if (genre) query.append("genre", genre);
+    if (artist) query.append("artist", artist);
+    if (album) query.append("album", album);
+
+    const res = yield call(axios.get, `${songUrl}?${query.toString()}`);
+    yield put(filterSongSuccess(res.data));
+  } catch (error) {
+    yield put(filterSongFailure((error as Error).message));
+  }
+}
+
 function* songsSaga(): Generator<Effect, void, unknown> {
   yield takeLatest(getSongsFetch.type, fetchSongs);
   yield takeLatest(addSongStart.type, addSong);
   yield takeLatest(deleteSongStart.type, deleteSong);
   yield takeLatest(updateSongStart.type, updateSong);
+  yield takeLatest(filterSongStart.type, filterSong);
 }
 
 export default songsSaga;
