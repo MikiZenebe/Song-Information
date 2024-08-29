@@ -14,7 +14,7 @@ router.post("/addSong", addSong);
 router.get("/allSongs", getSong);
 router.get("/:id", getSingleSong);
 router.get("/stats", getStats);
-router.put("/updateSong/:id", updateSong);
+router.put("/:id", updateSong);
 router.delete("/:id", deleteSong);
 
 export default router;

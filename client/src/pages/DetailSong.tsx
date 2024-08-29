@@ -4,7 +4,7 @@ import {
   DetailBtn,
   BtnContainer,
 } from "../styles/tableStyle";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { deleteSongStart } from "../redux/reducer/songSlice";
@@ -68,7 +68,7 @@ export default function DetailSong() {
 
         <BtnContainer>
           <DetailBtn update delete={false}>
-            Update
+            <Link to={`/update/${song._id}`}> Update</Link>
           </DetailBtn>
           <DetailBtn onClick={handleDelete} delete update={false}>
             Delete

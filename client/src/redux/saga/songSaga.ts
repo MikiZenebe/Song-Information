@@ -9,6 +9,9 @@ import {
   deleteSongStart,
   deleteSongSuccess,
   deleteSongFailure,
+  updateSongStart,
+  updateSongSuccess,
+  updateSongFailure,
 } from "../reducer/songSlice";
 import { addSongsUrl, getSongsUrl, songUrl } from "../../api/index";
 import axios from "axios";
@@ -36,6 +39,18 @@ function* addSong(
   }
 }
 
+function* updateSong(
+  action: PayloadAction<Song>
+): Generator<Effect, void, unknown> {
+  try {
+    const song = action.payload;
+    const res = yield call(axios.put, `${songUrl}/${song._id}`, song);
+    yield put(updateSongSuccess(res.data));
+  } catch (error) {
+    yield put(updateSongFailure((error as Error).message));
+  }
+}
+
 function* deleteSong(action: ReturnType<typeof deleteSongStart>) {
   const _id = action.payload;
   try {
@@ -50,6 +65,7 @@ function* songsSaga(): Generator<Effect, void, unknown> {
   yield takeLatest(getSongsFetch.type, fetchSongs);
   yield takeLatest(addSongStart.type, addSong);
   yield takeLatest(deleteSongStart.type, deleteSong);
+  yield takeLatest(updateSongStart.type, updateSong);
 }
 
 export default songsSaga;

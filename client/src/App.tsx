@@ -19,7 +19,7 @@ export default function App() {
         <Route path="/" element={<SongList />} />
         <Route path="/song/:id" element={<DetailSong />} />
         <Route path="/add" element={<AddSongs />} />
-        <Route path="/update" element={<UpdateSongs />} />
+        <Route path="/update/:id" element={<UpdateSongs />} />
       </Routes>
     </>
   );
