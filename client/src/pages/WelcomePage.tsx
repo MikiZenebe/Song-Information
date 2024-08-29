@@ -11,7 +11,7 @@ export default function WelcomePage() {
         of your personal collection.
       </p>
       <GlassContainer>
-        <Link to="/list">
+        <Link to="/">
           {" "}
           <h4>Let's Start</h4>
         </Link>

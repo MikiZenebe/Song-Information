@@ -18,6 +18,8 @@ interface SongsState {
     artist: string;
     album: string;
   };
+  artists: string[];
+  genres: string[];
 }
 
 const initialState: SongsState = {
@@ -29,6 +31,8 @@ const initialState: SongsState = {
     artist: "",
     album: "",
   },
+  artists: [],
+  genres: [],
 };
 
 const songsSlice = createSlice({
@@ -103,6 +107,14 @@ const songsSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
+
+    setArtists(state, action: PayloadAction<string[]>) {
+      state.artists = action.payload;
+    },
+    // Reducer to set genres
+    setGenres(state, action: PayloadAction<string[]>) {
+      state.genres = action.payload;
+    },
   },
 });
 
@@ -123,6 +135,8 @@ export const {
   filterSongStart,
   filterSongSuccess,
   filterSongFailure,
+  setArtists,
+  setGenres,
 } = songsSlice.actions;
 
 export default songsSlice.reducer;

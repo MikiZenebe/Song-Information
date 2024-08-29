@@ -17,12 +17,11 @@ export default function SongList() {
     dispatch(getSongsFetch());
   }, [dispatch]);
 
-  console.log(songs);
   return (
     <Container>
       <div>
         <div className="genre">
-          <h1>Filter By Genre</h1>
+          <h1>Filter By</h1>
           <Filter />
         </div>
         {loading && <h1>Loading...</h1>}

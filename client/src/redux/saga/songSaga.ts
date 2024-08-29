@@ -15,6 +15,8 @@ import {
   filterSongSuccess,
   filterSongFailure,
   filterSongStart,
+  setArtists,
+  setGenres,
 } from "../reducer/songSlice";
 import { addSongsUrl, getSongsUrl, songUrl } from "../../api/index";
 import axios from "axios";
@@ -83,12 +85,32 @@ function* filterSong(): Generator<Effect, void, unknown> {
   }
 }
 
+function* fetchArtistsSaga(): Generator<Effect, void, unknown> {
+  try {
+    const response = yield call(axios.get, `${songUrl}/artists`);
+    yield put(setArtists(response.data));
+  } catch (error) {
+    console.error("Failed to fetch artists", error);
+  }
+}
+
+function* fetchGenresSaga(): Generator<Effect, void, unknown> {
+  try {
+    const response = yield call(axios.get, `${songUrl}/genres`);
+    yield put(setGenres(response.data));
+  } catch (error) {
+    console.error("Failed to fetch genres", error);
+  }
+}
+
 function* songsSaga(): Generator<Effect, void, unknown> {
   yield takeLatest(getSongsFetch.type, fetchSongs);
   yield takeLatest(addSongStart.type, addSong);
   yield takeLatest(deleteSongStart.type, deleteSong);
   yield takeLatest(updateSongStart.type, updateSong);
   yield takeLatest(filterSongStart.type, filterSong);
+  yield takeLatest("FETCH_ARTISTS", fetchArtistsSaga);
+  yield takeLatest("FETCH_GENRES", fetchGenresSaga);
 }
 
 export default songsSaga;
