@@ -6,7 +6,6 @@ import {
   filterByGenres,
   getSingleSong,
   getSong,
-  getStats,
   updateSong,
 } from "../controllers/songController.js";
 
@@ -17,7 +16,7 @@ router.get("/", getSong);
 router.get("/artists", filterByArtists);
 router.get("/genres", filterByGenres);
 router.get("/:id", getSingleSong);
-router.get("/stats", getStats);
+
 router.put("/:id", updateSong);
 router.delete("/:id", deleteSong);
 

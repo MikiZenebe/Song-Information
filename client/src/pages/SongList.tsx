@@ -5,6 +5,7 @@ import { getSongsFetch } from "../redux/reducer/songSlice";
 import { Link } from "react-router-dom";
 import { Container, Table } from "../styles/tableStyle";
 import Filter from "../components/Filter";
+import Stats from "../components/Stats";
 
 export default function SongList() {
   const dispatch = useDispatch();
@@ -56,6 +57,11 @@ export default function SongList() {
               })}
             </tbody>
           </Table>
+        </div>
+
+        <div className="genre">
+          <h1>Filter By</h1>
+          <Stats />
         </div>
       </div>
     </Container>

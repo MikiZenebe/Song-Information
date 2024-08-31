@@ -18,11 +18,12 @@ import {
   setArtists,
   setGenres,
 } from "../reducer/songSlice";
-import { addSongsUrl, getSongsUrl, songUrl } from "../../api/index";
+import { addSongsUrl, getSongsUrl, songUrl, statUrl } from "../../api/index";
 import axios from "axios";
 import { Song } from "../../types/SongType";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { setStat } from "../reducer/statSlice";
 
 function* fetchSongs(): Generator<Effect, void, unknown> {
   try {
@@ -33,7 +34,6 @@ function* fetchSongs(): Generator<Effect, void, unknown> {
     yield put(getSongsFailure((error as Error).message));
   }
 }
-
 function* addSong(
   action: PayloadAction<Song>
 ): Generator<Effect, void, unknown> {
@@ -44,7 +44,6 @@ function* addSong(
     yield put(addSongFailure((error as Error).message));
   }
 }
-
 function* updateSong(
   action: PayloadAction<Song>
 ): Generator<Effect, void, unknown> {
@@ -56,7 +55,6 @@ function* updateSong(
     yield put(updateSongFailure((error as Error).message));
   }
 }
-
 function* deleteSong(action: ReturnType<typeof deleteSongStart>) {
   const _id = action.payload;
   try {
@@ -84,7 +82,6 @@ function* filterSong(): Generator<Effect, void, unknown> {
     yield put(filterSongFailure((error as Error).message));
   }
 }
-
 function* fetchArtistsSaga(): Generator<Effect, void, unknown> {
   try {
     const response = yield call(axios.get, `${songUrl}/artists`);
@@ -93,13 +90,21 @@ function* fetchArtistsSaga(): Generator<Effect, void, unknown> {
     console.error("Failed to fetch artists", error);
   }
 }
-
 function* fetchGenresSaga(): Generator<Effect, void, unknown> {
   try {
     const response = yield call(axios.get, `${songUrl}/genres`);
     yield put(setGenres(response.data));
   } catch (error) {
     console.error("Failed to fetch genres", error);
+  }
+}
+
+function* fetchStatSga(): Generator<Effect, void, unknown> {
+  try {
+    const res = yield call(axios.get, `${statUrl}/stats`);
+    yield put(setStat(res.data));
+  } catch (error) {
+    console.log("Failed to fetch stats", error);
   }
 }
 
@@ -111,6 +116,7 @@ function* songsSaga(): Generator<Effect, void, unknown> {
   yield takeLatest(filterSongStart.type, filterSong);
   yield takeLatest("FETCH_ARTISTS", fetchArtistsSaga);
   yield takeLatest("FETCH_GENRES", fetchGenresSaga);
+  yield takeLatest("FETCH_STATS", fetchStatSga);
 }
 
 export default songsSaga;

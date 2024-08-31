@@ -93,38 +93,87 @@ export const deleteSong = async (req, res) => {
   }
 };
 
-export const getStats = async (req, res) => {
+export const getStatsOfSongs = async (req, res) => {
   try {
-    const totalSongs = await Song.countDocuments();
-    const totalArtists = await Song.distinct("artist").length;
-    const totalAlbums = await Song.distinct("album").length;
-    const totalGenres = await Song.distinct("genre").legth;
-
-    const songsByGenre = await Song.aggregate([
-      { $group: { _id: "$genre", count: { $sum: 1 } } },
-    ]);
-
-    const songsByArtist = await Song.aggregate([
+    //Aggregation pipeline for stat
+    const stat = await Song.aggregate([
+      //fields to calc totals
       {
         $group: {
-          _id: "$artist",
-          count: { $sum: 1 },
-          albums: { $addToSet: "$album" },
+          _id: null,
+          totalSongs: { $sum: 1 },
+          totalArtists: {
+            $addToSet: "$artist",
+          },
+          totalAlbums: {
+            $addToSet: "$album",
+          },
+          totalGenres: {
+            $addToSet: "$genre",
+          },
+        },
+      },
+
+      //arrays to calc distinct counts
+      {
+        $project: {
+          totalSongs: 1,
+          totalArtists: { $size: "$totalArtists" },
+          totalAlbums: { $size: "$totalAlbums" },
+          totalGenres: { $size: "$totalGenres" },
         },
       },
     ]);
 
-    const stats = {
-      totalSongs,
-      totalArtists,
-      totalAlbums,
-      totalGenres,
-      songsByGenre,
-      songsByArtist,
-    };
+    //Aggergation pipeline for genres and songs count
+    const genreStats = await Song.aggregate([
+      {
+        $group: {
+          _id: "$genre",
+          songsInGenre: { $sum: 1 },
+        },
+      },
+    ]);
 
-    res.status(200).json(stats);
+    //Aggergation pipeline for artists, songs and albums count
+    const artistStats = await Song.aggregate([
+      {
+        $group: {
+          _id: "$artist",
+          songsCount: { $sum: 1 },
+          albums: {
+            $addToSet: "$album",
+          },
+        },
+      },
+      {
+        $project: {
+          songsCount: 1,
+          albumsCount: { $size: "$albums" },
+        },
+      },
+    ]);
+
+    //Aggergation pipeline for songs and albums count
+    const albumStats = await Song.aggregate([
+      {
+        $group: {
+          _id: "$album",
+          songsInAlbum: {
+            $sum: 1,
+          },
+        },
+      },
+    ]);
+
+    res.json({
+      overall: stat[0] || {},
+      genreStats,
+      artistStats,
+      albumStats,
+    });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    console.log("Error fetching stat", error);
+    res.status(500).json({ message: "Error fetching stat" });
   }
 };
