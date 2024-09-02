@@ -6,7 +6,7 @@ interface btnProps {
 }
 
 export const Container = styled.div`
-  max-width: 900px;
+  max-width: 100%;
   background-color: #ffffff;
   color: #18151f;
   width: auto;
@@ -21,10 +21,33 @@ export const Container = styled.div`
     padding: 50px 30px;
   }
 
+  @media (max-width: 750px) {
+    margin: auto;
+    width: 400px;
+  }
+
   .genre {
     display: flex;
     align-items: center;
     gap: 20px;
+  }
+
+  .page-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  button {
+    width: 50px;
+    padding: 3px 10px;
+    border: none;
+    cursor: pointer;
+  }
+
+  span {
+    margin: 0px 10px;
   }
 `;
 export const Table = styled.div`
@@ -33,6 +56,12 @@ export const Table = styled.div`
   width: 100%;
   border: 1px solid #493f3f87;
   cursor: pointer;
+
+  @media (max-width: 750px) {
+    margin: auto;
+    width: 70%;
+    overflow-x: scroll;
+  }
 
   td,
   th {

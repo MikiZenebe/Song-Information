@@ -23,6 +23,7 @@ export default function Filter() {
 
   return (
     <Container>
+      <h1>Filter By</h1>
       <select name="genre" value={filters.genre} onChange={handleFilterChange}>
         <option value="">All Genres</option>
         {genres.map((genre) => (
@@ -51,6 +52,9 @@ export default function Filter() {
 export const Container = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: auto;
+  margin: auto;
   gap: 10px;
   select {
     width: 100px;

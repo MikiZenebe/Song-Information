@@ -13,7 +13,9 @@ export const addSong = async (req, res) => {
 };
 
 export const getSong = async (req, res) => {
-  const { genre, artist, album } = req.query;
+  const { page = 1, genre, artist, album } = req.query;
+  const limit = 5;
+  const skip = (page - 1) * limit;
   try {
     const filter = {};
 
@@ -21,9 +23,17 @@ export const getSong = async (req, res) => {
     if (artist) filter.artist = artist;
     if (album) filter.album = album;
 
-    const songs = await Song.find(filter);
+    const songs = await Song.find(filter).skip(skip).limit(limit);
+    const totalSongs = await Song.countDocuments(filter);
 
-    res.status(200).json(songs);
+    res
+      .status(200)
+      .json({
+        songs,
+        totalSongs,
+        totalPages: Math.ceil(totalSongs / limit),
+        currentPage: Number(page),
+      });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

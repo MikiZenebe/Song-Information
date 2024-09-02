@@ -20,6 +20,11 @@ interface SongsState {
   };
   artists: string[];
   genres: string[];
+  pagination: {
+    currentPage: number;
+    totalPages: number;
+    totalSongs: number;
+  };
 }
 
 const initialState: SongsState = {
@@ -33,6 +38,11 @@ const initialState: SongsState = {
   },
   artists: [],
   genres: [],
+  pagination: {
+    currentPage: 1,
+    totalPages: 1,
+    totalSongs: 0,
+  },
 };
 
 const songsSlice = createSlice({
@@ -42,9 +52,22 @@ const songsSlice = createSlice({
     getSongsFetch(state) {
       state.loading = true;
     },
-    getSongsSuccess(state, action) {
-      state.songs = action.payload;
+    getSongsSuccess(
+      state,
+      action: PayloadAction<{
+        songs: Song[];
+        totalPages: number;
+        totalSongs: number;
+        currentPage: number;
+      }>
+    ) {
+      state.songs = action.payload.songs;
       state.loading = false;
+      state.pagination = {
+        currentPage: action.payload.currentPage,
+        totalSongs: action.payload.totalSongs,
+        totalPages: action.payload.totalPages,
+      };
     },
     getSongsFailure(state, action) {
       state.error = action.payload;
@@ -94,6 +117,10 @@ const songsSlice = createSlice({
 
     setFilters(state, action: PayloadAction<Partial<SongsState["filters"]>>) {
       state.filters = { ...state.filters, ...action.payload };
+      state.pagination.currentPage = 1;
+    },
+    setPage(state, action: PayloadAction<number>) {
+      state.pagination.currentPage = action.payload;
     },
 
     filterSongStart(state) {
@@ -132,6 +159,7 @@ export const {
   deleteSongSuccess,
   deleteSongFailure,
   setFilters,
+  setPage,
   filterSongStart,
   filterSongSuccess,
   filterSongFailure,

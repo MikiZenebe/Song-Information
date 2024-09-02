@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useEffect } from "react";
-import { getSongsFetch } from "../redux/reducer/songSlice";
+import { getSongsFetch, setPage } from "../redux/reducer/songSlice";
 import { Link } from "react-router-dom";
 import { Container, Table } from "../styles/tableStyle";
 import Filter from "../components/Filter";
@@ -9,19 +9,22 @@ import Stats from "../components/Stats";
 
 export default function SongList() {
   const dispatch = useDispatch();
-  const { songs, error, loading } = useSelector(
+  const { songs, filters, pagination, error, loading } = useSelector(
     (state: RootState) => state.songs
   );
 
   useEffect(() => {
     dispatch(getSongsFetch());
-  }, [dispatch]);
+  }, [dispatch, pagination.currentPage, filters]);
+
+  const handleChange = (newPage) => {
+    dispatch(setPage(newPage));
+  };
 
   return (
     <Container>
       <div>
         <div className="genre">
-          <h1>Filter By</h1>
           <Filter />
         </div>
         {loading && <h1>Loading...</h1>}
@@ -38,25 +41,44 @@ export default function SongList() {
             </thead>
 
             <tbody>
-              {songs.map((song) => {
-                return (
-                  <tr key={song._id}>
-                    <td>
-                      <Link
-                        to={`/song/${song._id}`}
-                        style={{ color: "#18151f" }}
-                      >
-                        {song.title}
-                      </Link>
-                    </td>
-                    <td>{song.artist}</td>
-                    <td>{song.album}</td>
-                    <td>{song.genre}</td>
-                  </tr>
-                );
-              })}
+              {Array.isArray(songs) &&
+                songs.map((song) => {
+                  return (
+                    <tr key={song._id}>
+                      <td>
+                        <Link
+                          to={`/song/${song._id}`}
+                          style={{ color: "#18151f" }}
+                        >
+                          {song.title}
+                        </Link>
+                      </td>
+                      <td>{song.artist}</td>
+                      <td>{song.album}</td>
+                      <td>{song.genre}</td>
+                    </tr>
+                  );
+                })}
             </tbody>
           </Table>
+
+          <div className="page-btn">
+            <button
+              disabled={pagination.currentPage === 1}
+              onClick={() => handleChange(pagination.currentPage - 1)}
+            >
+              Prev
+            </button>
+            <span>
+              Page {pagination.currentPage} of {pagination.totalPages}
+            </span>
+            <button
+              disabled={pagination.currentPage === pagination.totalPages}
+              onClick={() => handleChange(pagination.currentPage + 1)}
+            >
+              Next
+            </button>
+          </div>
         </div>
 
         <div className="genre">

@@ -17,6 +17,8 @@ import {
   filterSongStart,
   setArtists,
   setGenres,
+  setFilters,
+  setPage,
 } from "../reducer/songSlice";
 import { addSongsUrl, getSongsUrl, songUrl, statUrl } from "../../api/index";
 import axios from "axios";
@@ -27,9 +29,26 @@ import { setStat } from "../reducer/statSlice";
 
 function* fetchSongs(): Generator<Effect, void, unknown> {
   try {
-    const response = yield call(axios.get, getSongsUrl);
-    const songs = yield response.data;
-    yield put(getSongsSuccess(songs));
+    const state: RootState = yield select();
+    const { genre, artist } = state.songs.filters;
+    const { currentPage } = state.songs.pagination;
+
+    const response = yield call(axios.get, songUrl, {
+      params: {
+        genre,
+        artist,
+        page: currentPage,
+      },
+    });
+
+    yield put(
+      getSongsSuccess({
+        songs: response.data.songs,
+        totalPages: response.data.totalPages,
+        totalSongs: response.data.totalSongs,
+        currentPage: response.data.currentPage,
+      })
+    );
   } catch (error) {
     yield put(getSongsFailure((error as Error).message));
   }
@@ -110,6 +129,8 @@ function* fetchStatSga(): Generator<Effect, void, unknown> {
 
 function* songsSaga(): Generator<Effect, void, unknown> {
   yield takeLatest(getSongsFetch.type, fetchSongs);
+  yield takeLatest(setFilters.type, fetchSongs);
+  yield takeLatest(setPage.type, fetchSongs);
   yield takeLatest(addSongStart.type, addSong);
   yield takeLatest(deleteSongStart.type, deleteSong);
   yield takeLatest(updateSongStart.type, updateSong);
