@@ -7,7 +7,7 @@
   background-clip: border-box;
 
   color-scheme: light dark;
-  background: linear-gradient(#00bbd8, #162547);
+  background: linear-gradient(#162547, #00bbd8);
 }
 
 a {
