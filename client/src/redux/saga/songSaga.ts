@@ -27,7 +27,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { setStat } from "../reducer/statSlice";
 
-function* fetchSongs(): Generator<Effect, void, unknown> {
+function* fetchSongs(): Generator<Effect, void, never> {
   try {
     const state: RootState = yield select();
     const { genre, artist } = state.songs.filters;
@@ -53,9 +53,7 @@ function* fetchSongs(): Generator<Effect, void, unknown> {
     yield put(getSongsFailure((error as Error).message));
   }
 }
-function* addSong(
-  action: PayloadAction<Song>
-): Generator<Effect, void, unknown> {
+function* addSong(action: PayloadAction<Song>): Generator<Effect, void, never> {
   try {
     const res = yield call(axios.post, addSongsUrl, action.payload);
     yield put(addSongSuccess(res.data));
@@ -65,16 +63,22 @@ function* addSong(
 }
 function* updateSong(
   action: PayloadAction<Song>
-): Generator<Effect, void, unknown> {
+): Generator<Effect, void, never> {
   try {
     const song = action.payload;
-    const res = yield call(axios.put, `${songUrl}/${song._id}`, song);
+    const res: { data: Song } = yield call(
+      axios.put,
+      `${songUrl}/${song._id}`,
+      song
+    );
     yield put(updateSongSuccess(res.data));
   } catch (error) {
     yield put(updateSongFailure((error as Error).message));
   }
 }
-function* deleteSong(action: ReturnType<typeof deleteSongStart>) {
+function* deleteSong(
+  action: ReturnType<typeof deleteSongStart>
+): Generator<Effect, void, never> {
   const _id = action.payload;
   try {
     yield call(axios.delete, `${songUrl}/${_id}`);
@@ -84,7 +88,7 @@ function* deleteSong(action: ReturnType<typeof deleteSongStart>) {
   }
 }
 
-function* filterSong(): Generator<Effect, void, unknown> {
+function* filterSong(): Generator<Effect, void, never> {
   try {
     const { genre, artist, album } = yield select(
       (state: RootState) => state.songs.filters
@@ -101,7 +105,7 @@ function* filterSong(): Generator<Effect, void, unknown> {
     yield put(filterSongFailure((error as Error).message));
   }
 }
-function* fetchArtistsSaga(): Generator<Effect, void, unknown> {
+function* fetchArtistsSaga(): Generator<Effect, void, never> {
   try {
     const response = yield call(axios.get, `${songUrl}/artists`);
     yield put(setArtists(response.data));
