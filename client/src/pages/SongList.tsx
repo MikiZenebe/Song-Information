@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { getSongsFetch, setPage } from "../redux/reducer/songSlice";
 import { Link } from "react-router-dom";
 import { Container, Table } from "../styles/tableStyle";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import Filter from "../components/Filter";
 import Stats from "../components/Stats";
 
@@ -46,12 +47,7 @@ export default function SongList() {
                   return (
                     <tr key={song._id}>
                       <td>
-                        <Link
-                          to={`/song/${song._id}`}
-                          style={{ color: "#18151f" }}
-                        >
-                          {song.title}
-                        </Link>
+                        <Link to={`/song/${song._id}`}>{song.title}</Link>
                       </td>
                       <td>{song.artist}</td>
                       <td>{song.album}</td>
@@ -67,7 +63,7 @@ export default function SongList() {
               disabled={pagination.currentPage === 1}
               onClick={() => handleChange(pagination.currentPage - 1)}
             >
-              Prev
+              <IoIosArrowBack size={18} />
             </button>
             <span>
               Page {pagination.currentPage} of {pagination.totalPages}
@@ -76,13 +72,12 @@ export default function SongList() {
               disabled={pagination.currentPage === pagination.totalPages}
               onClick={() => handleChange(pagination.currentPage + 1)}
             >
-              Next
+              <IoIosArrowForward size={18} />
             </button>
           </div>
         </div>
 
-        <div className="genre">
-          <h1>Filter By</h1>
+        <div>
           <Stats />
         </div>
       </div>

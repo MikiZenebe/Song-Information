@@ -5,6 +5,25 @@ import UpdateSongs from "./pages/UpdateSongs";
 import SongList from "./pages/SongList";
 import Navbar from "./components/Navbar";
 import DetailSong from "./pages/DetailSong";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+} from "chart.js";
+
+// Register the components
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement
+);
 
 export default function App() {
   const location = useLocation();

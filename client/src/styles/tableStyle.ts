@@ -7,10 +7,10 @@ interface btnProps {
 
 export const Container = styled.div`
   max-width: 100%;
-  background-color: #ffffff;
+  background-color: #101727;
   color: #18151f;
-  width: auto;
-  margin: 5px auto;
+  width: 70%;
+  margin: 50px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,12 +19,14 @@ export const Container = styled.div`
 
   @media (max-width: 850px) {
     padding: 50px 30px;
+    margin: 40px auto;
+    width: auto;
   }
 
-  @media (max-width: 750px) {
+  /* @media (max-width: 750px) {
     margin: auto;
     width: 400px;
-  }
+  } */
 
   .genre {
     display: flex;
@@ -40,14 +42,27 @@ export const Container = styled.div`
   }
 
   button {
-    width: 50px;
-    padding: 3px 10px;
-    border: none;
+    font-weight: bold;
+    color: white;
+    border-radius: 5px;
     cursor: pointer;
+    width: 50px;
+    height: 30px;
+    border: none;
+    background-color: #00bbd8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    :disabled {
+      background-color: gray;
+      cursor: not-allowed;
+    }
   }
 
   span {
     margin: 0px 10px;
+    color: white;
   }
 `;
 export const Table = styled.div`
@@ -72,11 +87,16 @@ export const Table = styled.div`
   }
 
   tr:nth-child(even) {
-    background-color: #e5e3ea;
-    color: #18151f;
+    background-color: #33456b;
+    color: white;
+  }
+
+  tr:nth-child(odd) {
+    background-color: #097f9e;
+    color: white;
   }
   tr:hover {
-    background-color: #f8426f;
+    background-color: #00bbd8;
     transition: all 0.4s ease-in-out;
   }
 
@@ -85,7 +105,7 @@ export const Table = styled.div`
     padding-bottom: 12px;
     text-align: left;
     background-color: #18151f;
-    color: white;
+    color: #00bbd8;
   }
 `;
 
