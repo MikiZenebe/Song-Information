@@ -10,7 +10,7 @@ export default function App() {
   const location = useLocation();
 
   return (
-    <>
+    <div className="app">
       {/* Conditionally render Navbar if the current path is not "/" */}
       {location.pathname !== "/welcome" && <Navbar />}
 
@@ -21,6 +21,6 @@ export default function App() {
         <Route path="/add" element={<AddSongs />} />
         <Route path="/update/:id" element={<UpdateSongs />} />
       </Routes>
-    </>
+    </div>
   );
 }

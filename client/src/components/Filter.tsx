@@ -56,9 +56,17 @@ export const Container = styled.div`
   width: auto;
   margin: auto;
   gap: 10px;
+
+  h1 {
+    color: white;
+    text-align: center;
+  }
   select {
     width: 100px;
     cursor: pointer;
     padding: 5px;
+    background-color: #00bbd8;
+    border: none;
+    border-radius: 5px;
   }
 `;
