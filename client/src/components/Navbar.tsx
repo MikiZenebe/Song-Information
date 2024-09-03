@@ -3,15 +3,15 @@ import styled from "@emotion/styled";
 import { Link, NavLink } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 
-interface MobileMenu {
+interface MobileMenuProps {
   isOpen: boolean;
 }
 
 const NavbarComponent: React.FC = () => {
-  const [isOpen, setisOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
-    setisOpen(!isOpen);
+    setIsOpen(!isOpen);
   };
 
   return (
@@ -46,7 +46,7 @@ const NavbarComponent: React.FC = () => {
 
 export default NavbarComponent;
 
-const MobileMenu = styled.ul`
+const MobileMenu = styled.ul<MobileMenuProps>`
   display: flex;
   flex-direction: column;
   align-items: start;

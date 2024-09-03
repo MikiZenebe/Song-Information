@@ -28,7 +28,7 @@ interface SongsState {
 }
 
 const initialState: SongsState = {
-  songs: [],
+  songs: [] as Song[],
   loading: false,
   error: null,
   filters: {

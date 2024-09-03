@@ -17,7 +17,7 @@ export default function SongList() {
     dispatch(getSongsFetch());
   }, [dispatch, pagination.currentPage, filters]);
 
-  const handleChange = (newPage) => {
+  const handleChange = (newPage: number) => {
     dispatch(setPage(newPage));
   };
 

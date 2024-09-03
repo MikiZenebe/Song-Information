@@ -20,7 +20,7 @@ import {
   setFilters,
   setPage,
 } from "../reducer/songSlice";
-import { addSongsUrl, getSongsUrl, songUrl, statUrl } from "../../api/index";
+import { addSongsUrl, songUrl, statUrl } from "../../api/index";
 import axios from "axios";
 import { Song } from "../../types/SongType";
 import { PayloadAction } from "@reduxjs/toolkit";
