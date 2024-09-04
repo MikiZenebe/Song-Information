@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Song } from "../types/SongType";
 import { updateSongStart } from "../redux/reducer/songSlice";
 import toast from "react-hot-toast";
+import Loading from "../components/Loading";
 
 export default function UpdateSongs() {
   const { id } = useParams<{ id: string }>();
@@ -47,7 +48,7 @@ export default function UpdateSongs() {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading />;
   if (error) return <p>{error}</p>;
 
   return (

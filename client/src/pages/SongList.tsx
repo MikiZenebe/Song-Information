@@ -7,6 +7,7 @@ import { Container, Table } from "../styles/tableStyle";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import Filter from "../components/Filter";
 import Stats from "../components/Stats";
+import Loading from "../components/Loading";
 
 export default function SongList() {
   const dispatch = useDispatch();
@@ -24,63 +25,67 @@ export default function SongList() {
 
   return (
     <Container>
-      <div>
-        <div className="genre">
-          <Filter />
-        </div>
-        {loading && <h1>Loading...</h1>}
-        {error && <h1>{error}</h1>}
+      {loading ? (
+        <Loading />
+      ) : (
         <div>
-          <Table>
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Artist</th>
-                <th>Album</th>
-                <th>Genre</th>
-              </tr>
-            </thead>
+          <div className="genre">
+            <Filter />
+          </div>
 
-            <tbody>
-              {Array.isArray(songs) &&
-                songs.map((song) => {
-                  return (
-                    <tr key={song._id}>
-                      <td>
-                        <Link to={`/song/${song._id}`}>{song.title}</Link>
-                      </td>
-                      <td>{song.artist}</td>
-                      <td>{song.album}</td>
-                      <td>{song.genre}</td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </Table>
+          {error && <h1>{error}</h1>}
+          <div>
+            <Table>
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Artist</th>
+                  <th>Album</th>
+                  <th>Genre</th>
+                </tr>
+              </thead>
 
-          <div className="page-btn">
-            <button
-              disabled={pagination.currentPage === 1}
-              onClick={() => handleChange(pagination.currentPage - 1)}
-            >
-              <IoIosArrowBack size={18} />
-            </button>
-            <span>
-              Page {pagination.currentPage} of {pagination.totalPages}
-            </span>
-            <button
-              disabled={pagination.currentPage === pagination.totalPages}
-              onClick={() => handleChange(pagination.currentPage + 1)}
-            >
-              <IoIosArrowForward size={18} />
-            </button>
+              <tbody>
+                {Array.isArray(songs) &&
+                  songs.map((song) => {
+                    return (
+                      <tr key={song._id}>
+                        <td>
+                          <Link to={`/song/${song._id}`}>{song.title}</Link>
+                        </td>
+                        <td>{song.artist}</td>
+                        <td>{song.album}</td>
+                        <td>{song.genre}</td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </Table>
+
+            <div className="page-btn">
+              <button
+                disabled={pagination.currentPage === 1}
+                onClick={() => handleChange(pagination.currentPage - 1)}
+              >
+                <IoIosArrowBack size={18} />
+              </button>
+              <span>
+                Page {pagination.currentPage} of {pagination.totalPages}
+              </span>
+              <button
+                disabled={pagination.currentPage === pagination.totalPages}
+                onClick={() => handleChange(pagination.currentPage + 1)}
+              >
+                <IoIosArrowForward size={18} />
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <Stats />
           </div>
         </div>
-
-        <div>
-          <Stats />
-        </div>
-      </div>
+      )}
     </Container>
   );
 }

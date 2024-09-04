@@ -5,6 +5,7 @@
 
   width: 100%;
   background-clip: border-box;
+  height: auto;
 
   color-scheme: light dark;
   background: linear-gradient(#162547, #00bbd8);

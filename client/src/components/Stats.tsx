@@ -50,8 +50,8 @@ export default function Stats() {
       {
         label: "# of Songs by Artist",
         data: artistStats.map((artist) => artist.songsCount),
-        backgroundColor: "#ffffff",
-        borderColor: "#ffffff",
+        backgroundColor: "#2c3e66",
+        borderColor: "#2c3e66",
         borderWidth: 1,
       },
       {
