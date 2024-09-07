@@ -7,5 +7,5 @@ COPY package*.json ./
 RUN npm install
 #Copy the server folder to the src folder in the container
 COPY . .
-EXPOSE 5000
-CMD npm start
+EXPOSE 5173
+CMD npm run dev

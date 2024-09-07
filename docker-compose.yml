@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  web:
+    depends_on:
+      - api
+    build: ./client
+    ports:
+      - 5173:5173
+
+    develop:
+      watch:
+        - path: ./client/package.json
+          action: rebuild
+        - path: ./client/package-lock.json
+          action: rebuild
+
+        - path: ./client
+          target: /app
+          action: sync
+
+  api:
+    depends_on:
+      - serviceName
+# version: "3"
+# services:
+#   mongo_db:
+#     container_name: database_container
+#     image: mongo:latest
+#     restart: always
+#     volumes:
+#       - mongo_db:/data/db
+
+#   app:
+#     build: .
+#     ports:
+#       - 5000:3000
+#     environment:
+#       MONGO_URI: mongodb://mongo_db:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.15
+#       NODE_ENV: production
+
+#     depends_on:
+#       - mongo_db
+
+# volumes:
+#   mongo_db: {}
