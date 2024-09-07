@@ -7,7 +7,8 @@ services:
     build: ./client
     ports:
       - 5173:5173
-
+    environment:
+      VITE_API_URL: http://localhost:5000
     develop:
       watch:
         - path: ./client/package.json
@@ -21,7 +22,33 @@ services:
 
   api:
     depends_on:
-      - serviceName
+      - db
+    build: ./server
+    ports:
+      - 5000:5000
+    environment:
+      MONGO_URI: "mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.15"
+
+    develop:
+      watch:
+        - path: ./server/package.json
+          action: rebuild
+        - path: ./server/package-lock.json
+          action: rebuild
+
+        - path: ./server
+          target: /app
+          action: sync
+
+  db:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - music:/data/db
+
+volumes:
+  music:
 # version: "3"
 # services:
 #   mongo_db:
