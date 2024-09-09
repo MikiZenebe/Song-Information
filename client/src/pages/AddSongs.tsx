@@ -16,7 +16,7 @@ export default function AddSongs() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const newSong = { _id: "", title, artist, album, genre };
+    const newSong: any = { _id: "", title, artist, album, genre };
     dispatch(addSongStart(newSong));
 
     toast.success("Song Created 🚀🚀🚀");

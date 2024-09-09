@@ -28,7 +28,7 @@ const statSlice = createSlice({
   initialState,
   reducers: {
     // Reducer to set stats
-    setStat(state, action: PayloadAction<StatState>) {
+    setStat(_state, action: PayloadAction<StatState>) {
       return action.payload;
     },
   },

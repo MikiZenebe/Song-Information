@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { call, Effect, put, select, takeLatest } from "redux-saga/effects";
 import {
   getSongsFetch,
@@ -33,7 +34,7 @@ function* fetchSongs(): Generator<Effect, void, never> {
     const { genre, artist } = state.songs.filters;
     const { currentPage } = state.songs.pagination;
 
-    const response = yield call(axios.get, songUrl, {
+    const response: any = yield call(axios.get, songUrl, {
       params: {
         genre,
         artist,
@@ -55,7 +56,7 @@ function* fetchSongs(): Generator<Effect, void, never> {
 }
 function* addSong(action: PayloadAction<Song>): Generator<Effect, void, never> {
   try {
-    const res = yield call(axios.post, addSongsUrl, action.payload);
+    const res: any = yield call(axios.post, addSongsUrl, action.payload);
     yield put(addSongSuccess(res.data));
   } catch (error) {
     yield put(addSongFailure((error as Error).message));
@@ -78,8 +79,8 @@ function* updateSong(
 }
 function* deleteSong(
   action: ReturnType<typeof deleteSongStart>
-): Generator<Effect, void, never> {
-  const _id = action.payload;
+): Generator<Effect, void, string> {
+  const _id: any = action.payload;
   try {
     yield call(axios.delete, `${songUrl}/${_id}`);
     yield put(deleteSongSuccess(_id));
@@ -88,7 +89,7 @@ function* deleteSong(
   }
 }
 
-function* filterSong(): Generator<Effect, void, never> {
+function* filterSong(): Generator<Effect, void, any> {
   try {
     const { genre, artist, album } = yield select(
       (state: RootState) => state.songs.filters
@@ -99,7 +100,7 @@ function* filterSong(): Generator<Effect, void, never> {
     if (artist) query.append("artist", artist);
     if (album) query.append("album", album);
 
-    const res = yield call(axios.get, `${songUrl}?${query.toString()}`);
+    const res: any = yield call(axios.get, `${songUrl}?${query.toString()}`);
     yield put(filterSongSuccess(res.data));
   } catch (error) {
     yield put(filterSongFailure((error as Error).message));
@@ -107,7 +108,7 @@ function* filterSong(): Generator<Effect, void, never> {
 }
 function* fetchArtistsSaga(): Generator<Effect, void, never> {
   try {
-    const response = yield call(axios.get, `${songUrl}/artists`);
+    const response: any = yield call(axios.get, `${songUrl}/artists`);
     yield put(setArtists(response.data));
   } catch (error) {
     console.error("Failed to fetch artists", error);
@@ -115,7 +116,7 @@ function* fetchArtistsSaga(): Generator<Effect, void, never> {
 }
 function* fetchGenresSaga(): Generator<Effect, void, unknown> {
   try {
-    const response = yield call(axios.get, `${songUrl}/genres`);
+    const response: any = yield call(axios.get, `${songUrl}/genres`);
     yield put(setGenres(response.data));
   } catch (error) {
     console.error("Failed to fetch genres", error);
@@ -124,7 +125,7 @@ function* fetchGenresSaga(): Generator<Effect, void, unknown> {
 
 function* fetchStatSga(): Generator<Effect, void, unknown> {
   try {
-    const res = yield call(axios.get, `${statUrl}/stats`);
+    const res: any = yield call(axios.get, `${statUrl}/stats`);
     yield put(setStat(res.data));
   } catch (error) {
     console.log("Failed to fetch stats", error);
