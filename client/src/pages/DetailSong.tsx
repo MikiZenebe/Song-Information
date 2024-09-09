@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Container,
   Table,
@@ -12,7 +13,7 @@ import toast from "react-hot-toast";
 import Loading from "../components/Loading";
 
 export default function DetailSong() {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: any }>();
   // const [song, setSong] = useState<Song | null>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();

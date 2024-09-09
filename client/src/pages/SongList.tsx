@@ -24,7 +24,7 @@ export default function SongList() {
   };
 
   return (
-    <Container>
+    <Container update={false} delete={false} detail={false}>
       {loading ? (
         <Loading />
       ) : (
