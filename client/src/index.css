@@ -8,7 +8,15 @@
   height: auto;
 
   color-scheme: light dark;
-  background: linear-gradient(#162547, #00bbd8);
+  background: white;
+}
+
+.update {
+  background: #00b881;
+}
+
+.delete {
+  background: #b8004d;
 }
 
 a {

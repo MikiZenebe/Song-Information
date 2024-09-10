@@ -40,7 +40,7 @@ export default function DetailSong() {
   if (!song) return <p>Song not found</p>;
 
   return (
-    <Container detail update={false} delete={false}>
+    <Container>
       {loading ? (
         <Loading />
       ) : (
@@ -73,15 +73,10 @@ export default function DetailSong() {
             </Table>
           </div>
           <BtnContainer>
-            <DetailBtn update delete={false} detail={false}>
+            <DetailBtn className="update">
               <Link to={`/update/${song._id}`}> Update</Link>
             </DetailBtn>
-            <DetailBtn
-              onClick={handleDelete}
-              delete
-              update={false}
-              detail={false}
-            >
+            <DetailBtn className="delete" onClick={handleDelete}>
               Delete
             </DetailBtn>
           </BtnContainer>

@@ -24,27 +24,35 @@ export default function Filter() {
   return (
     <Container>
       <h1>Filter By</h1>
-      <select name="genre" value={filters.genre} onChange={handleFilterChange}>
-        <option value="">All Genres</option>
-        {genres.map((genre) => (
-          <option key={genre} value={genre}>
-            {genre}
-          </option>
-        ))}
-      </select>
+      <div>
+        <select
+          className="grad"
+          name="genre"
+          value={filters.genre}
+          onChange={handleFilterChange}
+        >
+          <option value="">All Genres</option>
+          {genres.map((genre) => (
+            <option key={genre} value={genre}>
+              {genre}
+            </option>
+          ))}
+        </select>
 
-      <select
-        name="artist"
-        value={filters.artist}
-        onChange={handleFilterChange}
-      >
-        <option value="">All Artists</option>
-        {artists.map((artist) => (
-          <option key={artist} value={artist}>
-            {artist}
-          </option>
-        ))}
-      </select>
+        <select
+          className="grad"
+          name="artist"
+          value={filters.artist}
+          onChange={handleFilterChange}
+        >
+          <option value="">All Artists</option>
+          {artists.map((artist) => (
+            <option key={artist} value={artist}>
+              {artist}
+            </option>
+          ))}
+        </select>
+      </div>
     </Container>
   );
 }
@@ -58,15 +66,26 @@ export const Container = styled.div`
   gap: 10px;
 
   h1 {
-    color: white;
+    color: #18151f;
     text-align: center;
   }
   select {
     width: 100px;
+
     cursor: pointer;
     padding: 5px;
-    background-color: #00bbd8;
     border: none;
     border-radius: 5px;
+  }
+  div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  @media (max-width: 850px) {
+    flex-direction: column;
+    margin-bottom: 10px;
+    gap: 0px;
   }
 `;

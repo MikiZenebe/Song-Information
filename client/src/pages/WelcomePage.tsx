@@ -6,7 +6,7 @@ export default function WelcomePage() {
     <Wrapper>
       <p>
         Welcome to{" "}
-        <span style={{ fontSize: "25px", color: "#f8426f" }}>Dankira</span>,
+        <span style={{ fontSize: "25px", color: "#00bbd8" }}>Dankira</span>,
         your go-to app for managing info of all your favorite songs! keep track
         of your personal collection.
       </p>
@@ -39,9 +39,9 @@ const Wrapper = styled.div`
 `;
 
 const GlassContainer = styled.button`
-  background: #d30337d1;
+  background: #00bbd8;
   border-radius: 5px;
-  box-shadow: 0 8px 32px 0 #d30337d1;
+  box-shadow: 0 8px 32px 0 #00bbd8;
   backdrop-filter: blur(5px);
   text-align: center;
   border: 0px;
@@ -51,12 +51,12 @@ const GlassContainer = styled.button`
 
   &:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 32px 0 #d30337f0;
+    box-shadow: 0 8px 32px 0 #00bbd8;
   }
 
   &:active {
     transform: scale(0.95);
-    background: #b7022fd1;
-    box-shadow: 0 4px 16px 0 #b7022fd1;
+    background: #009bb3;
+    box-shadow: 0 4px 16px 0 #009bb3;
   }
 `;

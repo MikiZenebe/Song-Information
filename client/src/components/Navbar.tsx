@@ -18,7 +18,7 @@ const NavbarComponent: React.FC = () => {
     <>
       <Navbar>
         <div>
-          <p style={{ fontSize: "18px", fontWeight: "bold", color: "#f8426f" }}>
+          <p style={{ fontSize: "18px", fontWeight: "bold", color: "#fc9c0d" }}>
             <Link to="/">Dankira</Link>
           </p>
         </div>

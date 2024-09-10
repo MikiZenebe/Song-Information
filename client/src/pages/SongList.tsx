@@ -24,7 +24,7 @@ export default function SongList() {
   };
 
   return (
-    <Container update={false} delete={false} detail={false}>
+    <Container>
       {loading ? (
         <Loading />
       ) : (
@@ -53,7 +53,9 @@ export default function SongList() {
                         <td>
                           <Link to={`/song/${song._id}`}>{song.title}</Link>
                         </td>
-                        <td>{song.artist}</td>
+                        <td>
+                          <Link to={`/song/${song._id}`}>{song.artist}</Link>
+                        </td>
                         <td>{song.album}</td>
                         <td>{song.genre}</td>
                       </tr>
